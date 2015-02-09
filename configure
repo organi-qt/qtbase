@@ -541,16 +541,6 @@ fi
 # initalize variables
 #-------------------------------------------------------------------------------
 
-OE_VARIABLES="AR CC CFLAGS COMPILER CXX CXXFLAGS LDFLAGS LINK QT_CONFIG STRIP"
-for varname in $OE_VARIABLES; do
-    qmakevarname="${varname}"
-    cmd=`echo \
-'if [ -n "\$OE_QMAKE_'${varname}'" ]; then
-    QMakeVar set OE_QMAKE_'${qmakevarname}' "\$OE_QMAKE_'${varname}'"
-fi'`
-    eval "$cmd"
-done
-
 SYSTEM_VARIABLES="RANLIB STRIP OBJDUMP LD CC CXX CFLAGS CXXFLAGS LDFLAGS"
 # Use CC/CXX to run config.tests
 mkdir -p "$outpath/config.tests"
