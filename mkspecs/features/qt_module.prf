@@ -177,6 +177,8 @@ load(qt_installs)
 load(qt_targets)
 load(qt_common)
 
+TARGET = $$qtLibraryTarget($$TARGET$$QT_LIBINFIX) #do this towards the end
+
 # this builds on top of qt_common
 unix|mingw {
     CONFIG += create_pc
@@ -213,5 +215,3 @@ win32 {
     # On other platforms, Qt's own compilation goes needs to compile the Qt 5.0 API
     DEFINES *= QT_DISABLE_DEPRECATED_BEFORE=0x050000
 }
-
-TARGET = $$qtLibraryTarget($$TARGET$$QT_LIBINFIX) #do this towards the end
