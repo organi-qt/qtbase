@@ -65,7 +65,6 @@ public:
     ~QEGLPlatformIntegration();
 
     void initialize() Q_DECL_OVERRIDE;
-    void create_initialize() const;
 
     QEGLPlatformScreen *screen() const { return m_screen; }
     EGLDisplay display() const { return m_display; }

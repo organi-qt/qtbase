@@ -106,25 +106,16 @@ void QEGLPlatformIntegration::initialize()
     if (m_display == EGL_NO_DISPLAY)
         qFatal("Could not open egl display");
 
+    EGLint major, minor;
+    if (!eglInitialize(m_display, &major, &minor))
+        qFatal("Could not initialize egl display");
+
     m_screen = createScreen();
     screenAdded(m_screen);
 
     m_inputContext = QPlatformInputContextFactory::create();
 
     m_vtHandler.reset(new QFbVtHandler);
-}
-
-void QEGLPlatformIntegration::create_initialize() const
-{
-    static int once=0;
-    if(once)
-        return;
-
-    EGLint major, minor;
-    if (!eglInitialize(m_display, &major, &minor))
-        qFatal("Could not initialize egl display");
-
-    once++;
 }
 
 QAbstractEventDispatcher *QEGLPlatformIntegration::createEventDispatcher() const
@@ -150,7 +141,6 @@ QPlatformBackingStore *QEGLPlatformIntegration::createPlatformBackingStore(QWind
 QPlatformWindow *QEGLPlatformIntegration::createPlatformWindow(QWindow *window) const
 {
     QWindowSystemInterface::flushWindowSystemEvents();
-    create_initialize();
     QEGLPlatformWindow *w = createWindow(window);
     w->create();
     if (window->type() != Qt::ToolTip)
